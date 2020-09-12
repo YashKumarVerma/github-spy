@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Octokit } = require("@octokit/core");
-
+const { OrganizationSelectorPrompt } = require("./userInteraction");
 class Worker {
   /** authenticate user based on token */
   authenticate() {
@@ -11,7 +11,7 @@ class Worker {
         });
         resolve("Authentication Successful");
       } catch (e) {
-        reject("Error Authenticating.");
+        reject("Error Authenticating");
       }
     });
   }
@@ -21,29 +21,66 @@ class Worker {
     return new Promise(async (resolve, reject) => {
       try {
         const { data } = await this.client.request("/user");
-        console.log(`Loggin in as ${data.name} / ${data.email}`);
+        console.log(`Logged in in as ${data.name} / ${data.email}`);
         this.user = data;
         resolve(data);
       } catch (e) {
-        reject("Error loading user details ");
+        reject("Error loading user details");
       }
     });
   }
 
   /** list all organizations user is member of */
-  listOrganizations() {
+  getOrganizationDetails() {
     return new Promise(async (resolve, reject) => {
       try {
         const { data } = await this.client.request(
           `GET /users/${this.user.login}/orgs`
         );
 
-        console.log("\nListing Organizations : ");
-        data.map((org) => console.log(`> ${org.login}`));
+        console.log(`\nOrganizations Fetched :${data.length} `);
+        this.organizations = data;
 
         resolve();
       } catch (e) {
-        reject("Error : ");
+        reject("Error : Cannot get list of all organizations");
+      }
+    });
+  }
+
+  filterOrganizations() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        OrganizationSelectorPrompt(this.organizations)
+          .then((resp) => {
+            this.selectedOrgs = resp.organization;
+            resolve();
+          })
+          .catch((err) => reject(err));
+      } catch (e) {
+        reject("Error : Filtering organizations");
+      }
+    });
+  }
+
+  // getAllRepositories
+  getAllRepositories() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.repoList = [];
+        let response;
+        for (let i = 0; i < this.selectedOrgs.length; i += 1) {
+          response = await this.client.request(
+            `GET /orgs/${this.selectedOrgs[i]}/repos`
+          );
+          this.repoList.push(response.data);
+          console.log(`> Processed ${this.selectedOrgs[i]}`);
+        }
+
+        resolve();
+      } catch (e) {
+        console.log(e);
+        reject("Error : Filtering organizations");
       }
     });
   }

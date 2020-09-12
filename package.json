@@ -19,6 +19,7 @@
   "homepage": "https://github.com/YashKumarVerma/github-readme-enforcer#readme",
   "dependencies": {
     "@octokit/core": "^3.1.2",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "inquirer": "^7.3.3"
   }
 }
