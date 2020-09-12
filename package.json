@@ -1,0 +1,24 @@
+{
+  "name": "github-readme-enforcer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YashKumarVerma/github-readme-enforcer.git"
+  },
+  "keywords": [],
+  "author": "Yash Kumar Verma <yk.verma2000@gmail.com> (https://yashkumarverma.github.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YashKumarVerma/github-readme-enforcer/issues"
+  },
+  "homepage": "https://github.com/YashKumarVerma/github-readme-enforcer#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "octonode": "^0.9.5"
+  }
+}
