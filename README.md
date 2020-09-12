@@ -1,0 +1,1 @@
+Simple script to open a issue if no readme in repository
