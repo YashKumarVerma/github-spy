@@ -1,1 +1,3 @@
-Simple script to open a issue if no readme in repository
+# Github Spy
+
+A bot to generate reports based on custom filter functions.
