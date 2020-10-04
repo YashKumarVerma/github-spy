@@ -5,7 +5,7 @@ import {
   RepositorySelectorPrompt,
 } from "./userInteraction";
 import { GetStarGazers } from "./features/getStarGazers";
-// import { CheckNecessaryFiles } from "./helper";
+import { GetRepositoryWithoutReadme } from "./features/getRepositoriesWithoutReadme";
 class Worker {
   private client: any;
   private user: any;
@@ -13,7 +13,6 @@ class Worker {
   private selectedOrgs: Array<any> = [];
   private organizations: Array<any> = [];
   private selectedRepository: Array<any> = [];
-  private defaulterRepository: Array<any> = [];
 
   /** authenticate user based on token */
   authenticate() {
@@ -122,17 +121,7 @@ class Worker {
           await GetStarGazers(this, this.selectedRepository[i]);
 
           /** readme checker */
-          //   const { data } = await this.client.request(
-          //     `GET /repos/${this.selectedRepository[i]}/contents`
-          //   );
-          //   if (CheckNecessaryFiles(data)) {
-          //     this.defaulterRepository.push(this.selectedRepository[i]);
-          //     console.log(`Checking ${this.selectedRepository[i]} Readme found.`);
-          //   } else {
-          //     console.log(
-          //       `Checking ${this.selectedRepository[i]} Readme not found.`
-          //     );
-          //   }
+          await GetRepositoryWithoutReadme(this, this.selectedRepository[i]);
         }
       } catch (e) {
         console.log(e);

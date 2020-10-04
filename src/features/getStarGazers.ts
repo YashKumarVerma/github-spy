@@ -11,5 +11,8 @@ export const GetStarGazers = async (__this: any, __repository: string) => {
   data.forEach((starGazer: any) => {
     userNames.push(starGazer.login);
   });
-  fs.writeFileSync(`${fileName}.starGazers.json`, JSON.stringify(userNames));
+  fs.writeFileSync(
+    `./reports/${fileName}.starGazers.report.json`,
+    JSON.stringify(userNames)
+  );
 };
