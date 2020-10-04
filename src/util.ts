@@ -4,7 +4,8 @@ import {
   OrganizationSelectorPrompt,
   RepositorySelectorPrompt,
 } from "./userInteraction";
-import { CheckNecessaryFiles } from "./helper";
+import { GetStarGazers } from "./features/getStarGazers";
+// import { CheckNecessaryFiles } from "./helper";
 class Worker {
   private client: any;
   private user: any;
@@ -117,18 +118,21 @@ class Worker {
     return new Promise(async (resolve, reject) => {
       try {
         for (let i = 0; i < this.selectedRepository.length; i += 1) {
-          const { data } = await this.client.request(
-            `GET /repos/${this.selectedRepository[i]}/contents`
-          );
+          /** star list generator */
+          await GetStarGazers(this, this.selectedRepository[i]);
 
-          if (CheckNecessaryFiles(data)) {
-            this.defaulterRepository.push(this.selectedRepository[i]);
-            console.log(`Checking ${this.selectedRepository[i]} Readme found.`);
-          } else {
-            console.log(
-              `Checking ${this.selectedRepository[i]} Readme not found.`
-            );
-          }
+          /** readme checker */
+          //   const { data } = await this.client.request(
+          //     `GET /repos/${this.selectedRepository[i]}/contents`
+          //   );
+          //   if (CheckNecessaryFiles(data)) {
+          //     this.defaulterRepository.push(this.selectedRepository[i]);
+          //     console.log(`Checking ${this.selectedRepository[i]} Readme found.`);
+          //   } else {
+          //     console.log(
+          //       `Checking ${this.selectedRepository[i]} Readme not found.`
+          //     );
+          //   }
         }
       } catch (e) {
         console.log(e);
