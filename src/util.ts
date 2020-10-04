@@ -83,7 +83,7 @@ class Worker {
         let response;
         for (let i = 0; i < this.selectedOrgs.length; i += 1) {
           response = await this.client.request(
-            `GET /orgs/${this.selectedOrgs[i]}/repos`
+            `GET /orgs/${this.selectedOrgs[i]}/repos?per_page=100`
           );
           this.repoList.push(response.data);
           console.log(`> Processed ${this.selectedOrgs[i]}`);
