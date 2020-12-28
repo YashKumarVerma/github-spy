@@ -4,7 +4,7 @@
 
 ## About
 
-Do you lead an organization ? or are you a maintainer of some open source project ? Even if you are neither of the above, there can be instances when you might be required to generate quick reports of any github organization. This can cover anything as simple as getting name of all repositories or things a bit tricky like ensuring projects contain particular structure.
+Do you lead an organization ? or are you a maintainer of some open source project ? Even if you are either of the above, there can be instances when you might be required to generate quick reports of any github organization. This can cover anything as simple as getting name of all repositories or things a bit tricky like ensuring projects contain particular structure.
 
 I was facing a similar issue, and therefore I've written this bot down. In order to operate, it requires a personal access token as an environment variable. Just rename the `.env.example` file to `.env` and place it there. Then you're good to go.
 
